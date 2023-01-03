@@ -1,29 +1,80 @@
 package HotelDBMS;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 public class Guests {
-
 	
-	public static void mainMenue() {
+	static void connectToDataBase() throws Throwable, IllegalAccessException, ClassNotFoundException {
+
+		Connection connection = null;
+
+		try {
+
+			// Create a connection to the database
+
+			String serverName = "localhost";
+
+			String url = "jdbc:sqlserver://localhost:1433;databaseName=HotelDBMS;encrypt=true;trustServerCertificate=true";
+			String user = "sa";
+			String pass = "root";
+			Driver driver = (Driver) Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
+			DriverManager.registerDriver(driver);
+
+			connection = DriverManager.getConnection(url, user, pass);
+
+			System.out.println("Successfully Connected to the database!");
+
+		} catch (SQLException e) {
+
+			System.out.println("Could not connect to the database " + e.getMessage());
+		}
+
+	}
+	static void mainMenue() {
 
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("**********+++++++++++++HELLO+++++++++++++************");
-		System.out.println("1- get By Id");
-		System.out.println("2- update By Id");
-		System.out.println("3- delete By Id");
-		System.out.println("4- make Is Active False By Id");
-		System.out.println("5- insert Into Table");
-//		System.out.println("6- ");
-//		System.out.println("7- ");
+		System.out.println("1- Connect To DataBase");
+		System.out.println("2- CREATE TABLE Hotel ");
+		System.out.println("3- Insert Hotel Information Into Table ");
+//		System.out.println("4- delete By Id");
+//		System.out.println("5- make Is Active False By Id ");
+//		System.out.println("6- insert Into Table ");
+		System.out.println("4- Test ");
 //		System.out.println("8- ");
+//		System.out.println("9- ");
 		System.out.println("0- Exit ");
+	}	
+	
+	public static void createGuestsTable() throws Throwable, IllegalAccessException, ClassNotFoundException {
 
-		String option = sc.next();
+		String url = "jdbc:sqlserver://localhost:1433;databaseName=HotelDBMS;encrypt=true;trustServerCertificate=true";
+		String user = "sa";
+		String pass = "root";
 
+		try (Connection conn = DriverManager.getConnection(url, user, pass); Statement stmt = conn.createStatement();)
+		{
+			String sql = "CREATE TABLE Guests " + "( GuestsId int not null PRIMARY KEY,"
+					+ " GuestsName VARCHAR(50) not null," + " guestPhone  VARCHAR(50) not null," + " guestAccompanyingMembers int not null ,"
+					+ " guestPaymentAmount int not null ," + " roomId INT FOREIGN KEY REFERENCES Rooms(roomId),"
+					+ " hotelId INT FOREIGN KEY REFERENCES Hotel(hotelId)," + " createdDate Date not null,"
+					+ " updatedDate Date," 
+					+ " isActive bit not null,)";
+			
+
+			stmt.executeUpdate(sql);
+			System.out.println("Created table in given database...");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-
+	
 	public static void getById() {
 //		take id input from the user
 //		print on console
@@ -48,5 +99,55 @@ public class Guests {
 
 	public static void insertIntoTable() {
 
-}
+	}
+	
+	
+	public static void main(String[] args) throws Throwable, ClassNotFoundException, Throwable {
+
+		Scanner sc = new Scanner(System.in);
+
+		boolean isExit = true;
+
+		do {
+
+			mainMenue();
+
+			int option = sc.nextInt();
+
+			switch (option) {
+
+			case 1:
+
+				connectToDataBase();
+
+				break;
+
+			case 2:
+
+				createGuestsTable();
+				break;
+
+			case 3:
+
+//				insertIntoTableHotels();
+
+				break;
+
+			case 4:
+				getById();
+
+				break;
+
+			case 0:
+
+//				toExit();
+				isExit = false;
+
+				break;
+
+			}
+
+		} while (isExit);
+
+	}
 }

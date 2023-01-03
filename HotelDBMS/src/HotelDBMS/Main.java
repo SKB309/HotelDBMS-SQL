@@ -64,11 +64,11 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		boolean exit ;
-		
+		boolean exit;
 
 		mainMenue();
-		int option = 0 ;
+		
+		int option = 0;
 
 		while (exit = false) {
 
@@ -111,25 +111,13 @@ public class Main {
 
 				break;
 
-				
-				
-				
-				default :
-					
-					System.out.println("Please Enter courrect choise");
-					
+			default:
 
-					
+				System.out.println("Please Enter courrect choise");
+
 			}
 
 		}
 	}
 
 }
-
-
-
-
-
-
-

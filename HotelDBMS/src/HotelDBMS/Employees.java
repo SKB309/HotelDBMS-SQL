@@ -1,27 +1,56 @@
 package HotelDBMS;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 public class Employees {
 	
-	public static void mainMenue() {
+	
+	static void mainMenue() {
 
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("**********+++++++++++++HELLO+++++++++++++************");
-		System.out.println("1- get By Id");
-		System.out.println("2- update By Id");
-		System.out.println("3- delete By Id");
-		System.out.println("4- make Is Active False By Id");
-		System.out.println("5- insert Into Table");
-//		System.out.println("6- ");
-//		System.out.println("7- ");
+		System.out.println("1- Connect To DataBase");
+		System.out.println("2- CREATE TABLE Hotel ");
+		System.out.println("3- Insert Hotel Information Into Table ");
+//		System.out.println("4- delete By Id");
+//		System.out.println("5- make Is Active False By Id ");
+//		System.out.println("6- insert Into Table ");
+		System.out.println("4- Test ");
 //		System.out.println("8- ");
+//		System.out.println("9- ");
 		System.out.println("0- Exit ");
-
-		String option = sc.next();
-
 	}
+	
+	public static void createEmployeesTable() throws Throwable, IllegalAccessException, ClassNotFoundException {
+
+		String url = "jdbc:sqlserver://localhost:1433;databaseName=HotelDBMS;encrypt=true;trustServerCertificate=true";
+		String user = "sa";
+		String pass = "root";
+
+		try (Connection conn = DriverManager.getConnection(url, user, pass); Statement stmt = conn.createStatement();)
+		{
+			String sql = "CREATE TABLE Employees " + "( EmployeesId int not null PRIMARY KEY,"
+					+ " employee_type_id INT FOREIGN KEY REFERENCES Employee_Type (employee_type_id) ," 
+					+ " roomId  INT FOREIGN KEY REFERENCES Rooms(roomId),"
+					+ " createdDate Date not null,"
+					+ " updatedDate Date," 
+					+ " isActive bit not null,)";
+			
+
+			stmt.executeUpdate(sql);
+			System.out.println("Created table in given database...");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 
 	public static void getById() {
 //		take id input from the user
@@ -47,6 +76,76 @@ public class Employees {
 
 	public static void insertIntoTable() {
 
-}
+	}
+
+	static void toExit() {
+
+		System.out.println("* * * * * * *  Exit  * * * * * * * * * *");
+		System.out.println("* * * * * *  THANK YOU  * * * * * * * *");
+		System.out.println("**********SEE YOU SOON**********");
+
+	}
+	public static void main(String[] args) throws Throwable, ClassNotFoundException, Throwable {
+
+		Scanner sc = new Scanner(System.in);
+
+		boolean isExit = true;
+
+		do {
+
+			mainMenue();
+
+			int option = sc.nextInt();
+
+			switch (option) {
+
+			case 1:
+
+//				connectToDataBase();
+
+				break;
+
+			case 2:
+
+				createEmployeesTable();
+
+				break;
+
+			case 3:
+
+//				insertIntoTableHotels();
+
+				break;
+
+			case 4:
+				getById();
+
+				break;
+
+			case 0:
+
+				toExit();
+				isExit = false;
+
+				break;
+
+			}
+
+		} while (isExit);
+
+	}
+
+
+
+
+
+
+
+
+
+
 
 }
+
+
+
