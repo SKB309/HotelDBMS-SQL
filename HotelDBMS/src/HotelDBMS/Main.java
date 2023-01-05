@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 public class Main {
 
-	int option;
-
 	public static void mainMenue() {
 
 		Scanner sc = new Scanner(System.in);
@@ -67,7 +65,7 @@ public class Main {
 		boolean exit;
 
 		mainMenue();
-		
+
 		int option = 0;
 
 		while (exit = false) {

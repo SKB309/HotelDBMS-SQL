@@ -25,16 +25,18 @@ public class Hotels {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("**********+++++++++++++HELLO+++++++++++++************");
-		System.out.println("1- Connect To DataBase");
+		System.out.println("1- Connect To DataBase ' HotelDBMS '");
 		System.out.println("2- CREATE TABLE Hotel ");
 		System.out.println("3- Insert Hotel Information Into Table ");
-//		System.out.println("4- delete By Id");
-//		System.out.println("5- make Is Active False By Id ");
-//		System.out.println("6- insert Into Table ");
 		System.out.println("4- Test ");
-//		System.out.println("8- ");
-//		System.out.println("9- ");
 		System.out.println("0- Exit ");
+		System.out.println("        ");
+		System.out.println("        ");
+		System.out.println("        ");
+		System.out.println("        ");
+
+		System.out.println(getDateTime());
+
 	}
 
 	static void connectToDataBase() throws Throwable, IllegalAccessException, ClassNotFoundException {
@@ -55,7 +57,7 @@ public class Hotels {
 
 			connection = DriverManager.getConnection(url, user, pass);
 
-			System.out.println("Successfully Connected to the database!");
+			System.out.println("Successfully Connected to the database!" + " HotelDBMS ");
 
 		} catch (SQLException e) {
 
@@ -71,7 +73,7 @@ public class Hotels {
 		String pass = "root";
 
 		try (Connection conn = DriverManager.getConnection(url, user, pass); Statement stmt = conn.createStatement();) {
-			String sql = "CREATE TABLE Hotel " + "( hotelId int not null PRIMARY KEY,"
+			String sql = "CREATE TABLE Hotel " + "( hotelId int PRIMARY KEY IDENTITY(1,1) ,"
 					+ " hotelName VARCHAR(50) not null," + " hotelLocation VARCHAR(50)," + " created_date date ,"
 					+ " updated_date date ," + " is_Active bit not null )";
 
@@ -90,8 +92,8 @@ public class Hotels {
 
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.println("Enter Hotel Id ");
-		Integer hotelId = scanner.nextInt();
+//		System.out.println("Enter Hotel Id ");
+//		Integer hotelId = scanner.nextInt();
 
 		System.out.println("Enter Hotel Name");
 		String hotelName = scanner.next();
@@ -99,15 +101,17 @@ public class Hotels {
 		System.out.println("Enter Hotel location");
 		String hotelLocation = scanner.next();
 
-		System.out.println("Enter The Date" + getDateTime());
-		getDateTime();
-		System.out.println("Enter The updated Date" + getDateTime());
+		System.out.println("Enter created_date");
+		String created_date = scanner.next();
 
-		System.out.println("Enter The status ");
-		String isActive = scanner.next();
+		System.out.println("Enter updated_date");
+		String updated_date = scanner.next();
 
-		String sql = "Insert into Hotel values(" + hotelId + ",'" + hotelName + "','" + hotelLocation + "',"
-				+ getDateTime() + ",'" + getDateTime() + "','" + isActive + "')";
+		System.out.println("Enter is_Active");
+		String is_Active = scanner.next();
+
+		String sql = "Insert into Hotel values( '" + hotelName + "','" + hotelLocation + "','" + created_date + "','"
+				+ updated_date + "','" + is_Active + "')";
 
 		// Connection class object
 		Connection con;

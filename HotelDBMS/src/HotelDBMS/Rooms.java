@@ -14,15 +14,10 @@ public class Rooms {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("**********+++++++++++++HELLO+++++++++++++************");
-		System.out.println("1- Connect To DataBase");
-		System.out.println("2- CREATE TABLE Hotel ");
-		System.out.println("3- Insert Hotel Information Into Table ");
-//		System.out.println("4- delete By Id");
-//		System.out.println("5- make Is Active False By Id ");
-//		System.out.println("6- insert Into Table ");
+		System.out.println("1- Connect To DataBase ' HotelDBMS '");
+		System.out.println("2- CREATE TABLE Rooms ");
+		System.out.println("3- Insert Rooms Information Into Table ");
 		System.out.println("4- Test ");
-//		System.out.println("8- ");
-//		System.out.println("9- ");
 		System.out.println("0- Exit ");
 	}
 
@@ -44,7 +39,7 @@ public class Rooms {
 
 			connection = DriverManager.getConnection(url, user, pass);
 
-			System.out.println("Successfully Connected to the database!");
+			System.out.println("Successfully Connected to the database!" + " HotelDBMS ");
 
 		} catch (SQLException e) {
 
@@ -59,10 +54,9 @@ public class Rooms {
 		String user = "sa";
 		String pass = "root";
 
-		try (Connection conn = DriverManager.getConnection(url, user, pass); Statement stmt = conn.createStatement();)
-		{
-			String sql = "CREATE TABLE Rooms " + "( roomId int not null PRIMARY KEY,"
-					+ " room_type_id INT FOREIGN KEY REFERENCES Room_Type(room_type_id),"
+		try (Connection conn = DriverManager.getConnection(url, user, pass); Statement stmt = conn.createStatement();) {
+			String sql = "CREATE TABLE Rooms " + "( roomId int  PRIMARY KEY IDENTITY(1,1),"
+					+ " room_type_id INT FOREIGN KEY REFERENCES Room_type(room_type_id),"
 					+ " hotelId INT FOREIGN KEY REFERENCES Hotel(hotelId)," + " created_date Date not null ,"
 					+ " updated_date Date," + " is_Active bit not null )";
 
@@ -73,20 +67,16 @@ public class Rooms {
 		}
 	}
 
-
 	static void insertRoomsTable() {
 
 		String url = "jdbc:sqlserver://localhost:1433;databaseName=HotelDBMS;encrypt=true;trustServerCertificate=true";
 		String user = "sa";
 		String pass = "root";
 
-		int roomId = 0;
-		boolean isActive;
-
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.println("Enter Room ID");
-		String roomId1 = scanner.next();
+//		System.out.println("Enter Room ID");
+//		String roomId = scanner.next();
 
 		System.out.println("Enter Room Type Id ");
 		Integer roomTypeId = scanner.nextInt();
@@ -94,7 +84,17 @@ public class Rooms {
 		System.out.println("Enter hotle ID");
 		String hotelId = scanner.next();
 
-		String sql = "Insert into Rooms values('" + roomId1 + "'," + roomTypeId + ",'" + hotelId + "')";
+		System.out.println("Enter created_date");
+		String created_date = scanner.next();
+
+		System.out.println("Enter updated_date");
+		String updated_date = scanner.next();
+
+		System.out.println("Enter is_Active");
+		String is_Active = scanner.next();
+
+		String sql = "Insert into Rooms values(" + roomTypeId + "," + hotelId + ",'" + created_date + "','"
+				+ updated_date + "','" + is_Active + "')";
 		// Connection class object
 		Connection con = null;
 
@@ -191,7 +191,7 @@ public class Rooms {
 
 			case 3:
 
-//			insertIntoTableHotels();
+				insertRoomsTable();
 
 				break;
 
