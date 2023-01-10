@@ -9,6 +9,17 @@ import java.util.Scanner;
 
 public class Employees {
 
+	
+	
+	static void pressEnter() {
+		Scanner sc = new Scanner(System.in);
+		
+	System.out.println("Please Press Enter key to continue...");
+	sc.nextLine();
+	
+}
+	
+	
 	static void connectToDataBase() throws Throwable, IllegalAccessException, ClassNotFoundException {
 
 		Connection connection = null;
@@ -162,12 +173,20 @@ public class Employees {
 		System.out.println("**********SEE YOU SOON**********");
 
 	}
+	
+	static void defaults() {
+
+		System.out.println("Please Enter courrect choise");
+
+	}
 
 	public static void main(String[] args) throws Throwable, ClassNotFoundException, Throwable {
 
 		Scanner sc = new Scanner(System.in);
 
 		boolean isExit = true;
+		
+		pressEnter();
 
 		do {
 
@@ -205,7 +224,11 @@ public class Employees {
 				isExit = false;
 
 				break;
+				
+				
+			default:
 
+				defaults();
 			}
 
 		} while (isExit);

@@ -3,14 +3,26 @@ package HotelDBMS;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
 public class Employee_Type {
+
+
+	static void pressEnter() {
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("Please Press Enter key to continue...");
+		sc.nextLine();
+
+	}
 
 	static void mainMenue() {
 
@@ -132,16 +144,77 @@ public class Employee_Type {
 		}
 	}
 
-	public static void getById() {
+	public static ArrayList<String> getById() throws Throwable {
+		
 //		take id input from the user
 //		print on console
 //		use SELECT query and ResultSets for showing
-	}
+		Scanner sc = new Scanner(System.in);
+		
+		String url = "jdbc:sqlserver://localhost:1433;databaseName=HotelDBMS;encrypt=true;trustServerCertificate=true";
+		String user = "sa";
+		String pass = "root";
+		
+//		public ArrayList<String> ShowResults(){
 
-	public static void updateById() {
+            Connection connection = null;
+//            String url = "jdbc:mysql://localhost:3306/";
+//            String dbName = "******";
+            String driverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+//            String userName = "******";
+//            String password = "******";
+            ArrayList<String> rowArray = new ArrayList<String>();
+
+            try{
+                  Class.forName(driverName).newInstance();
+                  connection = DriverManager.getConnection(url, user, pass);
+
+                  try{
+                    Statement stmt = connection.createStatement();
+                    String selectquery = "SELECT*FROM Employee_Type  ";
+                    ResultSet rs = stmt.executeQuery(selectquery);
+
+//                    WHERE employee_type_id
+                    
+                    
+                    while(rs.next()){
+                      rowArray.add(rs.getString(1));
+                      rowArray.add(rs.getString(2));
+                      rowArray.add(rs.getString(3));
+
+                      System.out.println(rowArray);
+                    }
+                  }
+                  catch(SQLException s){
+                    System.out.println(s);
+                  }
+                  connection.close();
+                }
+                catch (Exception e){
+                  e.printStackTrace();
+                }
+
+            return rowArray;
+        }
+
+
+		
+		
+	
+
+	public static void updateById() throws Throwable {
 //		take id input from the user
 //		print on console
 //		use Update query and ResultSets for showing
+		
+
+		ResultSet employee_type_id = null;
+		ResultSet rs = employee_type_id ;
+		while (rs.next()) {
+			String category = rs.getString("Category");
+			System.out.println(category);
+			}
+		
 	}
 
 	public static void deleteById() {
@@ -166,7 +239,14 @@ public class Employee_Type {
 
 	}
 
+	static void defaults() {
+
+		System.out.println("Please Enter courrect choise");
+
+	}
+
 	static String getDateTime() {
+
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 		return dateFormat.format(date);
@@ -177,6 +257,8 @@ public class Employee_Type {
 		Scanner sc = new Scanner(System.in);
 
 		boolean isExit = true;
+
+		pressEnter();
 
 		do {
 
@@ -215,10 +297,18 @@ public class Employee_Type {
 
 				break;
 
+			default:
+
+				defaults();
 			}
 
 		} while (isExit);
 
 	}
+
+	
+
+
+	
 
 }

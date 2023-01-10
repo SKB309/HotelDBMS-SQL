@@ -8,7 +8,15 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class Rooms {
-
+	
+	static void pressEnter() {
+		Scanner sc = new Scanner(System.in);
+		
+	System.out.println("Please Press Enter key to continue...");
+	sc.nextLine();
+	
+}
+	
 	static void mainMenue() {
 
 		Scanner sc = new Scanner(System.in);
@@ -163,12 +171,21 @@ public class Rooms {
 
 	}
 
+	static void defaults() {
+
+		System.out.println("Please Enter courrect choise");
+
+	}
+	
+	
 	public static void main(String[] args) throws Throwable, ClassNotFoundException, Throwable {
 
 		Scanner sc = new Scanner(System.in);
 
 		boolean isExit = true;
-
+		
+		pressEnter();
+		
 		do {
 
 			mainMenue();
@@ -206,6 +223,11 @@ public class Rooms {
 				isExit = false;
 
 				break;
+				
+				default:
+					
+				 defaults();
+
 
 			}
 

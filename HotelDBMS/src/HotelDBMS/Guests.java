@@ -8,6 +8,16 @@ import java.sql.Statement;
 import java.util.Scanner;
 
 public class Guests {
+	
+	
+	static void pressEnter() {
+		Scanner sc = new Scanner(System.in);
+		
+	System.out.println("Please Press Enter key to continue...");
+	sc.nextLine();
+	
+}
+	
 
 	static void connectToDataBase() throws Throwable, IllegalAccessException, ClassNotFoundException {
 
@@ -166,12 +176,29 @@ public class Guests {
 //		take id input from the user
 //		use Update query and just update 'is_Active' column
 	}
+	
+	static void toExit() {
+
+		System.out.println("* * * * * * *  Exit  * * * * * * * * * *");
+		System.out.println("* * * * * *  THANK YOU  * * * * * * * *");
+		System.out.println("**********SEE YOU SOON**********");
+
+	}
+	
+	
+	static void defaults() {
+
+		System.out.println("Please Enter courrect choise");
+
+	}
 
 	public static void main(String[] args) throws Throwable, ClassNotFoundException, Throwable {
 
 		Scanner sc = new Scanner(System.in);
 
 		boolean isExit = true;
+		
+		pressEnter();
 
 		do {
 
@@ -205,10 +232,14 @@ public class Guests {
 
 			case 0:
 
-//				toExit();
+				toExit();
 				isExit = false;
 
 				break;
+				
+			default:
+
+				defaults();
 
 			}
 

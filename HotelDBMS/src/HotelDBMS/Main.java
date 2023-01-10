@@ -4,10 +4,17 @@ package HotelDBMS;
 import java.util.Scanner;
 
 public class Main {
+	
+	static void pressEnter() {
+		Scanner sc = new Scanner(System.in);
+		
+	System.out.println("Please Press Enter key to continue...");
+	sc.nextLine();
+	
+}
+	
 
 	public static void mainMenue() {
-
-		Scanner sc = new Scanner(System.in);
 
 		System.out.println("**********+++++++++++++HELLO+++++++++++++************");
 		System.out.println("1- get By Id ");
@@ -15,12 +22,7 @@ public class Main {
 		System.out.println("3- delete By Id");
 		System.out.println("4- make Is Active False By Id ");
 		System.out.println("5- insert Into Table ");
-//		System.out.println("6- ");
-//		System.out.println("7- ");
-//		System.out.println("8- ");
 		System.out.println("0- Exit ");
-
-		String option = sc.next();
 
 	}
 
@@ -60,16 +62,31 @@ public class Main {
 
 	}
 
+	static void exit() {
+
+		System.out.println("good bay");
+	}
+
+	static void defaults() {
+
+		System.out.println("Please Enter courrect choise");
+
+	}
+
 	public static void main(String[] args) {
 
-		boolean exit;
+		Scanner sc = new Scanner(System.in);
 
-		mainMenue();
+		boolean exit = true;
 
-		int option = 0;
+		
+		pressEnter();
 
-		while (exit = false) {
-
+		do {
+			
+			mainMenue();
+			int option = sc.nextInt();
+			
 			switch (option) {
 
 			case 1:
@@ -104,18 +121,18 @@ public class Main {
 
 			case 0:
 
-				System.out.println("good bay");
-				exit = true;
+				exit();
+				exit = false;
 
 				break;
 
 			default:
 
-				System.out.println("Please Enter courrect choise");
+				defaults();
 
 			}
 
-		}
+		} while (exit);
 	}
 
 }
